@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "env": {
+		"browser": true,
+		"es2021": true
+	},
+	"rules": {
+		"@typescript-eslint/no-explicit-any": "off",
+		"no-warning-comments": [
+			"warn",
+			{
+				"terms": ["todo"],
+				"location": "anywhere"
+			}
+		]
+	}
+}
