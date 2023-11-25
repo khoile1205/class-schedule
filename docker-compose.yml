@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  app:
+    image: dinhkhoi/class-schedule-frontend
+    ports:
+      - "${PORT}:${PORT}"
+    restart: unless-stopped
