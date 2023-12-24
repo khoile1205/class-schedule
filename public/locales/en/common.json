@@ -1,3 +1,14 @@
 {
-    "app": "Class schedule"
+    "app": "Class schedule",
+    "welcome-login-page": "Welcome to the login page",
+    "home": "Home",
+    "about-us": "About us",
+    "contact": "Contact",
+    "login": "Login",
+    "hero-section-title": "Manage your team easily with task man",
+    "hero-section-description": "Statisdaa is a school management solution that offers a personalized portal to each type of user,",
+    "get-your-free-consultation-now": "Get your free consultation now",
+    "get-started": "Get started",
+    "go-to-homepage": "Go to homepage",
+    "remember-me": "Remember me"
 }

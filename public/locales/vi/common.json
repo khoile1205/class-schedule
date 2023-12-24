@@ -1,3 +1,14 @@
 {
-    "app": "Thời gian biểu"
+    "app": "Lịch học",
+    "welcome-login-page": "Chào mừng bạn đến trang đăng nhập",
+    "home": "Trang chủ",
+    "about-us": "Về chúng tôi",
+    "contact": "Liên hệ",
+    "login": "Đăng nhập",
+    "hero-section-title": "Quản lý đội của bạn dễ dàng với task man",
+    "hero-section-description": "Statisdaa là một giải pháp quản lý trường học cung cấp một cổng thông tin cá nhân hóa cho mỗi loại người dùng.",
+    "get-your-free-consultation-now": "Nhận tư vấn miễn phí của bạn ngay bây giờ",
+    "get-started": "Bắt đầu ngay",
+    "go-to-homepage": "Về trang chủ",
+    "remember-me": "Ghi nhớ đăng nhập"
 }
