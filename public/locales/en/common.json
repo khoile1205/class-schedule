@@ -1,5 +1,5 @@
 {
-    "app": "Class schedule",
+    "appName": "Class schedule",
     "welcome-login-page": "Welcome to the login page",
     "home": "Home",
     "about-us": "About us",
@@ -10,5 +10,9 @@
     "get-your-free-consultation-now": "Get your free consultation now",
     "get-started": "Get started",
     "go-to-homepage": "Go to homepage",
-    "remember-me": "Remember me"
+    "remember-me": "Remember me",
+    "login-page-title": "Login",
+    "login-successfully": "Login successfully !",
+    "login-failed": "Sorry, the account or password is incorrect !",
+    "logout-successfully": "Log out successfully !"
 }

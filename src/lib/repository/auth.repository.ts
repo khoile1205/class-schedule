@@ -8,29 +8,35 @@ abstract class AuthRepositoryAbstract {
 
 class AuthRepository implements AuthRepositoryAbstract {
 	async generateAccessToken(): Promise<any> {
-		const response = await apiService.post(
-			"/auth/refresh-access-token",
-			undefined,
-			getCookie("r_t")
-		);
+		try {
+			const response = await apiService.post(
+				"/auth/refresh-access-token",
+				undefined,
+				getCookie("r_t")
+			);
+			if (response.status !== 200) return null;
+			const result = await response.json();
 
-		if (response.status !== 200) return;
-
-		const result = await response.json();
-
-		return result;
+			return result;
+		} catch (error: any) {
+			throw new Error();
+		}
 	}
 	async signIn(username: string, password: string): Promise<any> {
-		const response = await apiService.post("/auth/sign-in", {
-			username,
-			password,
-		});
+		try {
+			const response = await apiService.post("/auth/sign-in", {
+				username,
+				password,
+			});
 
-		if (response.status !== 200) return;
+			if (response.status !== 200) return null;
 
-		const result = await response.json();
+			const result = await response.json();
 
-		return result;
+			return result;
+		} catch (error: any) {
+			throw new Error(error);
+		}
 	}
 }
 

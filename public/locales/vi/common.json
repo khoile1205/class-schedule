@@ -1,5 +1,5 @@
 {
-    "app": "Lịch học",
+    "appName": "Lịch học",
     "welcome-login-page": "Chào mừng bạn đến trang đăng nhập",
     "home": "Trang chủ",
     "about-us": "Về chúng tôi",
@@ -10,5 +10,10 @@
     "get-your-free-consultation-now": "Nhận tư vấn miễn phí của bạn ngay bây giờ",
     "get-started": "Bắt đầu ngay",
     "go-to-homepage": "Về trang chủ",
-    "remember-me": "Ghi nhớ đăng nhập"
+    "remember-me": "Ghi nhớ đăng nhập",
+    "login-page-title": "Đăng nhập",
+    "login-successfully": "Đăng nhập thành công",
+    "login-failed": "Xin lỗi, tài khoản hoặc mật khẩu không chính xác",
+    "logout-successfully": "Đăng xuất thành công !"
+
 }

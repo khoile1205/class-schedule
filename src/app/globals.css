@@ -127,3 +127,23 @@ body {
 .text-grey-900 {
   color: var(--grey-900);
 }
+
+.ant-drawer-header-title{
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: row-reverse;
+}
+
+/* .ant-drawer-header.ant-drawer-header-close-only{
+  display: flex;
+  flex: 0;
+  align-items: center;
+  padding: 16px 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+} */
+

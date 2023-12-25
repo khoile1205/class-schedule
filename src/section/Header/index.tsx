@@ -11,8 +11,10 @@ import { NAVBAR_ROUTES } from "@/components/Navbar/routes";
 import { AppString } from "@/util/app.string";
 import { LocalizedLink, NavbarItem, Typography } from "@/components";
 import AppImages from "@/util/app.image";
+import { useUserStore } from "@/lib/zustand/user.store";
 
 export function PageHeader() {
+	const { isLoggedIn } = useUserStore((state) => state);
 	const [isShowMenuMobile, setIsShowMenuMobile] = useState<boolean>(false);
 	const dictionary = useDictionaryStore((state) => state.dictionary);
 
@@ -40,12 +42,16 @@ export function PageHeader() {
 						height={30}
 						className="rounded"
 					></Image>
-					<Typography className="ms-4 text-white" size={24} weight={700}>
-						{dictionary.app}
+					<Typography
+						className="ms-4 text-white md:text-[18px] text-[14px]"
+						size={"custom"}
+						weight={700}
+					>
+						{dictionary.appName}
 					</Typography>
 				</Link>
 			</div>
-			<div className={`items-center hidden w-2/3 md:flex md:order-1 order-2`}>
+			<div className={`items-center hidden md:w-5/12 lg:w-2/3 md:flex md:order-1 order-2`}>
 				<div className="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:flex-row md:mt-0 md:border-0 md:bg-transparent list-none md:justify-evenly md:flex-grow">
 					{NAVBAR_ROUTES.map((route) => (
 						<NavbarItem key={route.key} route={route}></NavbarItem>
@@ -60,7 +66,7 @@ export function PageHeader() {
 					onClose={() => setIsShowMenuMobile(!isShowMenuMobile)}
 					className="md:hidden text-center"
 					contentWrapperStyle={{ width: "60vw" }}
-					closable={false}
+					closable={true}
 				>
 					{NAVBAR_ROUTES.map((route) => (
 						<NavbarItem key={route.key} route={route}></NavbarItem>
@@ -69,20 +75,25 @@ export function PageHeader() {
 			)}
 
 			<div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
-				<LocalizedLink href={"/login"} className="">
-					<Button
-						type="primary"
-						className="text-white"
-						size="large"
-						shape="round"
-						style={{
-							paddingRight: "2.5rem",
-							paddingLeft: "2.5rem",
-						}}
-					>
-						{dictionary["login"]}
-					</Button>
-				</LocalizedLink>
+				{isLoggedIn ? (
+					<>logged in</>
+				) : (
+					<Link href={"/login"} className="">
+						<Button
+							type="primary"
+							className="text-white"
+							size="large"
+							shape="round"
+							style={{
+								paddingRight: "2.5rem",
+								paddingLeft: "2.5rem",
+							}}
+						>
+							{dictionary["login"]}
+						</Button>
+					</Link>
+				)}
+
 				<Button
 					className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
 					onClick={() => setIsShowMenuMobile(!isShowMenuMobile)}

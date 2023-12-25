@@ -1,5 +1,5 @@
 export type AppString =
-	| "app"
+	| "appName"
 	| "welcome-login-page"
 	| "home"
 	| "about-us"
@@ -10,4 +10,8 @@ export type AppString =
 	| "get-your-free-consultation-now"
 	| "get-started"
 	| "go-to-homepage"
-	| "remember-me";
+	| "remember-me"
+	| "login-page-title"
+	| "login-successfully"
+	| "login-failed"
+	| "logout-successfully";
