@@ -18,11 +18,12 @@ class AuthService implements AuthServiceAbstract {
 
 	async signIn(username: string, password: string, isRemember: boolean): Promise<any> {
 		const token = await this._authRepository.signIn(username, password);
+		if (token) {
+			setCookie("a_t", token.access_token);
 
-		setCookie("a_t", token.access_token);
-
-		if (isRemember) {
-			setCookie("r_t", token.refresh_token);
+			if (isRemember) {
+				setCookie("r_t", token.refresh_token);
+			}
 		}
 
 		return token;

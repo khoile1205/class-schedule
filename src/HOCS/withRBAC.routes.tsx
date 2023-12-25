@@ -19,7 +19,7 @@ export const RBACRoute: React.FC<RBACRouteProps> = ({
 	// isLoginRoute = false,
 }) => {
 	const router = useRouter();
-	const { isLoggedIn, user } = useUserStore((state) => state);
+	const { isLoggedIn, user, logOut } = useUserStore((state) => state);
 	const { setLoading } = useLoadingStore((state) => state);
 
 	useEffect(() => {
@@ -27,13 +27,14 @@ export const RBACRoute: React.FC<RBACRouteProps> = ({
 
 		const timeOut = setTimeout(() => {
 			if (!(isLoggedIn && user?.role == allowedRole)) {
-				router.push("/login");
+				logOut();
+				router.push("/error");
 			}
 			setLoading(false);
 		}, 1000);
 
 		return () => clearTimeout(timeOut);
-	}, [user, isLoggedIn]);
+	}, [user, isLoggedIn, logOut]);
 
 	return <>{isLoggedIn && user?.role == allowedRole && children}</>;
 };

@@ -1,8 +1,11 @@
 "use client";
 
+import { useDictionaryStore } from "@/lib/zustand/dictionary";
 import { useUserStore } from "@/lib/zustand/user.store";
+import { openToast } from "@/util/openToast";
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from "@ant-design/icons";
 import { Button, Menu, MenuProps } from "antd";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 // function getItem(
@@ -45,6 +48,7 @@ import React, { useState } from "react";
 const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
 
 export const Sidebar = () => {
+	const router = useRouter();
 	// const [openKeys, setOpenKeys] = useState(["sub1"]);
 
 	// const onOpenChange: MenuProps["onOpenChange"] = (keys) => {
@@ -55,8 +59,14 @@ export const Sidebar = () => {
 	// 		setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
 	// 	}
 	// };
-
+	const { dictionary } = useDictionaryStore((state) => state);
 	const { logOut } = useUserStore((state) => state);
+
+	const handleLogoutUser = () => {
+		logOut();
+		openToast("success", dictionary["logout-successfully"]);
+		router.replace("/login");
+	};
 	return (
 		// <Menu
 		// 	mode="inline"
@@ -65,6 +75,6 @@ export const Sidebar = () => {
 		// 	style={{ width: 256 }}
 		// 	items={items}
 		// />
-		<Button onClick={() => logOut()}>Logout</Button>
+		<Button onClick={handleLogoutUser}>Logout</Button>
 	);
 };

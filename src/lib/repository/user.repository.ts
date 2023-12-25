@@ -2,19 +2,22 @@ import apiService from "@/util/apiService";
 import { User } from "../model/users.model";
 
 abstract class UserRepositoryAbstract {
-	abstract getUserInfo(): Promise<User>;
+	abstract getProfileWithToken(): Promise<User | null>;
 }
 
 class UserRepository implements UserRepositoryAbstract {
-	async getUserInfo(): Promise<User> {
-		const response = await apiService.get("/users/profile");
+	async getProfileWithToken(): Promise<User | null> {
 		try {
-			if (response.status !== 200) throw new Error("Error");
-		} catch (err) {}
+			const response = await apiService.get("/users/profile");
 
-		const user = await response.json();
+			if (response.status !== 200) return null;
 
-		return user;
+			const user = await response.json();
+
+			return user;
+		} catch (error) {
+			throw new Error();
+		}
 	}
 }
 

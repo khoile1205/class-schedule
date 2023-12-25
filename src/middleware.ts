@@ -5,26 +5,30 @@ import { i18nConfig } from "../i18n-config";
 import { getCookie, setCookie } from "cookies-next";
 
 function getLocale(request: NextRequest) {
-	// Negotiator expects plain object so we need to transform headers
-	const negotiatorHeaders: { [key: string]: string } = {};
-	request.headers.forEach((value: string, key: string) => (negotiatorHeaders[key] = value));
+	let locale: string;
 
-	// @ts-ignore locales are readonly
-	const locales: string[] = i18nConfig.locales;
+	const localeInCookies = request.cookies.get("locale")?.value;
+	if (localeInCookies) {
+		// Already have locale in cookies
+		locale = localeInCookies;
+	} else {
+		const negotiatorHeaders: { [key: string]: string } = {};
+		request.headers.forEach((value: string, key: string) => (negotiatorHeaders[key] = value));
 
-	// Use negotiator and intl-localematcher to get the best locale
-	let languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales);
+		// @ts-ignore locales are readonly
+		const locales: string[] = i18nConfig.locales;
 
-	const locale = matchLocale(languages, locales, i18nConfig.defaultLocale);
+		// Use negotiator and intl-localematcher to get the best locale
+		let languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales);
 
-	console.log("set new locale in cookie", locale, "from", languages);
-	setCookie("NEXT_LOCALE", locale);
+		// Negotiator expects plain object so we need to transform headers
+		locale = matchLocale(languages, locales, i18nConfig.defaultLocale);
+	}
+
 	return locale;
 }
 
 export function middleware(request: NextRequest) {
-	let redirectLocale: string;
-
 	const pathname: string = request.nextUrl.pathname;
 
 	// Check if there is any supported locale in the pathname
@@ -33,23 +37,12 @@ export function middleware(request: NextRequest) {
 	);
 
 	// Redirect if there is no locale
-	if (!pathnameIsMissingLocale) {
-		redirectLocale = pathname.split("/")[1];
-		setCookie("NEXT_LOCALE", redirectLocale);
-		return;
+	if (pathnameIsMissingLocale) {
+		const locale = getLocale(request);
+		return NextResponse.redirect(
+			new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
+		);
 	}
-
-	if (getCookie("NEXT_LOCALE")) {
-		redirectLocale = getCookie("NEXT_LOCALE") as string;
-	} else {
-		redirectLocale = getLocale(request);
-	}
-
-	setCookie("NEXT_LOCALE", redirectLocale);
-
-	return NextResponse.redirect(
-		new URL(`/${redirectLocale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url)
-	);
 }
 
 export const config = {

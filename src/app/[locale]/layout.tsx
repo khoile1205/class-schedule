@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import Provider from "./provider";
+import "react-toastify/dist/ReactToastify.css";
 
 const karla = localFont({
 	src: [
@@ -75,7 +76,7 @@ export default function RootLayout({ children, params }: LayoutPages) {
 	return (
 		<html lang={locale} className={`${karla.variable} ${kumbh_sans.variable}`}>
 			<body>
-				<Provider lang={locale}>{children}</Provider>
+				<Provider locale={locale}>{children}</Provider>
 			</body>
 		</html>
 	);
